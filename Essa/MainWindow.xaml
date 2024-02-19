@@ -1,0 +1,62 @@
+﻿<Window x:Class="Essa.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       
+        xmlns:local1="clr-namespace:Essa"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="Close"
+                        CanExecute="CommandBinding_CanExecute"
+                        Executed="CommandBinding_Executed"
+        />
+        <CommandBinding Command="Save"
+                        CanExecute="CommandBinding_CanExecute_3"
+                        Executed="CommandBinding_Executed_3"
+        />
+        <CommandBinding Command="local1:MojeKomendy.Zawijaj"
+                        CanExecute="CommandBinding_CanExecute_1"
+                        Executed ="CommandBinding_Executed_1"
+        />
+        <CommandBinding Command="local1:MojeKomendy.Powieksz"
+                        CanExecute="CommandBinding_CanExecute_2"
+                        Executed="CommandBinding_Executed_2"
+        />
+    </Window.CommandBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" FontSize="16" Background="LightBlue" >
+            <MenuItem Header="Plik">
+                <MenuItem Command="New" />
+                <MenuItem Command="Open">
+                    <MenuItem.Icon>
+                        <Image Source="open.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="Save" />
+                <Separator/>
+                <MenuItem Command="Close" />
+            </MenuItem>
+            <MenuItem Header ="Edycja">
+                <MenuItem x:Name="menuCopy" Command="Copy"/>
+                <MenuItem x:Name="menuCut" Command="Cut" />
+                <MenuItem x:Name="menuPaste" Command="Paste" />
+            </MenuItem>
+            <MenuItem Header="Narzędzia">
+                <MenuItem x:Name="menuZawijanie" Command = "local1:MojeKomendy.Zawijaj" IsCheckable="True" IsChecked="True" />
+                <MenuItem x:Name="menuPowiekszanie" Command = "local1:MojeKomendy.Powieksz" />
+            </MenuItem>
+        </Menu>
+        <StackPanel DockPanel.Dock="Right" Width="100" Background="LightBlue">
+            <Button Content="Kopiuj" Margin="10" Command="Copy"
+                    CommandTarget="{Binding ElementName=mojTekst}" />
+
+            <ToggleButton Content="Zawijaj" Margin="10" Command="local1:MojeKomendy.Zawijaj"
+                          CommandTarget="{Binding ElementName=mojTekst}"
+                          IsChecked="{Binding ElementName=menuZawijanie, Path=IsChecked}" />
+        </StackPanel>
+
+        <TextBox x:Name="mojTekst" Background="AliceBlue" TextWrapping="Wrap"/>
+    </DockPanel>
+</Window>
